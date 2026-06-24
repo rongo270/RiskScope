@@ -1,13 +1,8 @@
-﻿<resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Theme.RiskScope" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/brand_primary</item>
-        <item name="colorPrimaryVariant">@color/brand_primary_dark</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <item name="colorSecondary">@color/brand_accent</item>
-        <item name="colorOnSecondary">@color/black</item>
+<resources>
+    <style name="Theme.RiskScope" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/brand_bg_dark</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">false</item>
-        <item name="android:statusBarColor">@color/brand_primary_dark</item>
-        <item name="android:navigationBarColor">@color/surface</item>
-        <item name="android:fontFamily">sans</item>
     </style>
 </resources>
