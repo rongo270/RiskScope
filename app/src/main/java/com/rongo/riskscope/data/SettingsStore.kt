@@ -33,7 +33,7 @@ class SettingsStore(context: Context) {
 
     companion object {
         // Replace with your Render URL (Settings screen lets you change it at runtime).
-        const val DEFAULT_BASE_URL = "https://riskscope-backend.onrender.com"
+        const val DEFAULT_BASE_URL = "https://riskscope-server.onrender.com"
         private const val KEY_BASE_URL = "base_url"
         private const val KEY_SCAN_SYSTEM = "scan_system_apps"
     }
