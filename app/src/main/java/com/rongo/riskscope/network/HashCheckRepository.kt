@@ -5,6 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
+import com.rongo.riskscope.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -29,9 +30,13 @@ class HashCheckRepository {
             .readTimeout(60, TimeUnit.SECONDS)   // Render free tier can cold-start ~50s
             .writeTimeout(30, TimeUnit.SECONDS)
             .callTimeout(90, TimeUnit.SECONDS)
-            .addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BASIC
-            })
+            .apply {
+                if (BuildConfig.DEBUG) {
+                    addInterceptor(HttpLoggingInterceptor().apply {
+                        level = HttpLoggingInterceptor.Level.BASIC
+                    })
+                }
+            }
             .build()
     }
 

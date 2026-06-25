@@ -1,15 +1,75 @@
-*.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+# Built application files
+*.apk
+*.aab
+*.ap_
+
+# Java / Kotlin bytecode
+*.class
+*.dex
+
+# Generated files
+bin/
+gen/
+out/
+release/
+
+# Gradle
+.gradle/
+build/
+/build/
+
+# Local configuration (SDK paths, signing keys — never commit these)
 local.properties
+keystore.properties
+*.jks
+*.keystore
+
+# IntelliJ / Android Studio
+*.iml
+.idea/
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+*.eml
+*.ipr
+*.iws
+
+# External native build
+.externalNativeBuild/
+.cxx/
+
+# Google Services / Firebase (contain private API keys)
+google-services.json
+GoogleService-Info.plist
+
+# Captures & profiling
+/captures
+*.hprof
+
+# Lint
+lint/intermediates/
+lint/generated/
+lint/outputs/
+lint/tmp/
+
+# Kotlin build cache
+.kotlin/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# Claude Code local settings (contains local paths and permissions)
+.claude/settings.local.json
