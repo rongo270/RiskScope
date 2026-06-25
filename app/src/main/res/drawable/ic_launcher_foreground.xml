@@ -1,30 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:aapt="http://schemas.android.com/aapt"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <path android:pathData="M31,63.928c0,0 6.4,-11 12.1,-13.1c7.2,-2.6 26,-1.4 26,-1.4l38.1,38.1L107,108.928l-32,-1L31,63.928z">
-        <aapt:attr name="android:fillColor">
-            <gradient
-                android:endX="85.84757"
-                android:endY="92.4963"
-                android:startX="42.9492"
-                android:startY="49.59793"
-                android:type="linear">
-                <item
-                    android:color="#44000000"
-                    android:offset="0.0" />
-                <item
-                    android:color="#00000000"
-                    android:offset="1.0" />
-            </gradient>
-        </aapt:attr>
-    </path>
+
+    <!-- Shield body (brand blue #3D6BFF) -->
+    <path
+        android:fillColor="#3D6BFF"
+        android:strokeColor="#1E3A99"
+        android:strokeWidth="1.5"
+        android:pathData="M54,18
+                          Q80,18 80,30
+                          L80,58
+                          Q80,78 54,91
+                          Q28,78 28,58
+                          L28,30
+                          Q28,18 54,18
+                          Z" />
+
+    <!-- Top highlight — gives the shield a subtle 3-D lift -->
+    <path
+        android:fillColor="#30FFFFFF"
+        android:pathData="M54,21
+                          Q76,21 76,31
+                          L76,44
+                          Q66,34 54,21
+                          Z" />
+
+    <!-- Scope reticle — inner glow ring (very subtle) -->
+    <path
+        android:fillColor="#18FFFFFF"
+        android:pathData="M38,52
+                          A16,16,0,1,0,70,52
+                          A16,16,0,1,0,38,52
+                          Z" />
+
+    <!-- Scope reticle — outer ring -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2.5"
+        android:pathData="M38,52
+                          A16,16,0,1,0,70,52
+                          A16,16,0,1,0,38,52
+                          Z" />
+
+    <!-- Crosshair — horizontal lines (gap at center) -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:pathData="M38,52 L49,52 M59,52 L70,52" />
+
+    <!-- Crosshair — vertical lines (gap at center) -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:pathData="M54,36 L54,47 M54,57 L54,68" />
+
+    <!-- Center dot -->
     <path
         android:fillColor="#FFFFFF"
-        android:fillType="nonZero"
-        android:pathData="M65.3,45.828l3.8,-6.6c0.2,-0.4 0.1,-0.9 -0.3,-1.1c-0.4,-0.2 -0.9,-0.1 -1.1,0.3l-3.9,6.7c-6.3,-2.8 -13.4,-2.8 -19.7,0l-3.9,-6.7c-0.2,-0.4 -0.7,-0.5 -1.1,-0.3C38.8,38.328 38.7,38.828 38.9,39.228l3.8,6.6C36.2,49.428 31.7,56.028 31,63.928h46C76.3,56.028 71.8,49.428 65.3,45.828zM43.4,57.328c-0.8,0 -1.5,-0.5 -1.8,-1.2c-0.3,-0.7 -0.1,-1.5 0.4,-2.1c0.5,-0.5 1.4,-0.7 2.1,-0.4c0.7,0.3 1.2,1 1.2,1.8C45.3,56.528 44.5,57.328 43.4,57.328L43.4,57.328zM64.6,57.328c-0.8,0 -1.5,-0.5 -1.8,-1.2s-0.1,-1.5 0.4,-2.1c0.5,-0.5 1.4,-0.7 2.1,-0.4c0.7,0.3 1.2,1 1.2,1.8C66.5,56.528 65.6,57.328 64.6,57.328L64.6,57.328z"
-        android:strokeWidth="1"
-        android:strokeColor="#00000000" />
+        android:pathData="M50.5,52
+                          A3.5,3.5,0,1,0,57.5,52
+                          A3.5,3.5,0,1,0,50.5,52
+                          Z" />
+
+    <!-- Tiny scan-tick marks at cardinal points just outside the ring -->
+    <path
+        android:strokeColor="#9FB7FF"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M32,52 L35,52
+                          M73,52 L76,52
+                          M54,30 L54,33
+                          M54,71 L54,74" />
+
 </vector>
