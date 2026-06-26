@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit
 
 /**
  * Talks to RiskScope-Server. Stateless w.r.t. the base URL (which the user can
- * change in Settings) — each call is given the current base URL and the Retrofit
+ * change in Settings) - each call is given the current base URL and the Retrofit
  * instance is cached per URL.
  */
 class HashCheckRepository {

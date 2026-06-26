@@ -1,21 +1,21 @@
 # RiskScope
 
-An Android app that scans every installed application on your device, computes its APK hash, and checks it against a threat database to detect known malware — while also running on-device heuristic analysis for sideloaded or suspicious apps.
+An Android app that scans every installed application on your device, computes its APK hash, and checks it against a threat database to detect known malware - while also running on-device heuristic analysis for sideloaded or suspicious apps.
 
 ---
 
 ## How it works
 
-1. **Hash** — RiskScope computes the SHA-256 hash of each installed APK.
-2. **Server check** — The hashes are sent in batches to a [RiskScope-Server](https://github.com/rongo270/RiskScope-Server) instance, which checks them against a malware signature database.
-3. **Heuristics** — In parallel, the app analyzes each installed package for behavioral risk signals: debug certificates, dangerous permission combinations, active accessibility services, hidden startup receivers, etc.
-4. **Verdict** — Results are combined into a three-level threat classification:
+1. **Hash** - RiskScope computes the SHA-256 hash of each installed APK.
+2. **Server check** - The hashes are sent in batches to a [RiskScope-Server](https://github.com/rongo270/RiskScope-Server) instance, which checks them against a malware signature database.
+3. **Heuristics** - In parallel, the app analyzes each installed package for behavioral risk signals: debug certificates, dangerous permission combinations, active accessibility services, hidden startup receivers, etc.
+4. **Verdict** - Results are combined into a three-level threat classification:
 
 | Level | Meaning |
 |-------|---------|
 | **DANGER** | The APK hash matches a confirmed malware sample in the database |
 | **WATCH** | No known-malware match, but on-device heuristics flagged a notable signal (advisory only) |
-| **SAFE** | Not known malware, nothing notable — where normal apps land |
+| **SAFE** | Not known malware, nothing notable - where normal apps land |
 
 System apps and apps installed from trusted stores (Google Play, Galaxy Store, etc.) are always **SAFE** unless their hash is confirmed malicious.
 
@@ -27,7 +27,7 @@ System apps and apps installed from trusted stores (Google Play, Galaxy Store, e
 - On-device heuristic engine with scored behavioral findings
 - Per-app detail sheet with full permission list, install source, certificate, and all risk findings
 - Optional scan of system apps
-- Configurable server URL — point to your own RiskScope-Server instance
+- Configurable server URL - point to your own RiskScope-Server instance
 - Works offline (heuristics only when the server is unreachable)
 - Jetpack Compose UI with Material 3
 
@@ -109,7 +109,7 @@ app/src/main/java/com/rongo/riskscope/
 | `ACCESS_NETWORK_STATE` | Check connectivity before attempting server calls |
 | `QUERY_ALL_PACKAGES` | Enumerate all installed apps for scanning |
 
-No user data is collected. Only SHA-256 hashes of APK files are sent to the server — not file contents, personal data, or device identifiers.
+No user data is collected. Only SHA-256 hashes of APK files are sent to the server - not file contents, personal data, or device identifiers.
 
 ---
 

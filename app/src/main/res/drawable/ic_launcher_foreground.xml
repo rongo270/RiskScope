@@ -19,7 +19,7 @@
                           Q28,18 54,18
                           Z" />
 
-    <!-- Top highlight — gives the shield a subtle 3-D lift -->
+    <!-- Top highlight - gives the shield a subtle 3-D lift -->
     <path
         android:fillColor="#30FFFFFF"
         android:pathData="M54,21
@@ -28,7 +28,7 @@
                           Q66,34 54,21
                           Z" />
 
-    <!-- Scope reticle — inner glow ring (very subtle) -->
+    <!-- Scope reticle - inner glow ring (very subtle) -->
     <path
         android:fillColor="#18FFFFFF"
         android:pathData="M38,52
@@ -36,7 +36,7 @@
                           A16,16,0,1,0,38,52
                           Z" />
 
-    <!-- Scope reticle — outer ring -->
+    <!-- Scope reticle - outer ring -->
     <path
         android:fillColor="#00000000"
         android:strokeColor="#FFFFFF"
@@ -46,14 +46,14 @@
                           A16,16,0,1,0,38,52
                           Z" />
 
-    <!-- Crosshair — horizontal lines (gap at center) -->
+    <!-- Crosshair - horizontal lines (gap at center) -->
     <path
         android:strokeColor="#FFFFFF"
         android:strokeWidth="2.5"
         android:strokeLineCap="round"
         android:pathData="M38,52 L49,52 M59,52 L70,52" />
 
-    <!-- Crosshair — vertical lines (gap at center) -->
+    <!-- Crosshair - vertical lines (gap at center) -->
     <path
         android:strokeColor="#FFFFFF"
         android:strokeWidth="2.5"

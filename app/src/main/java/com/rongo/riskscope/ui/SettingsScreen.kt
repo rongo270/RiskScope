@@ -119,7 +119,7 @@ private fun ConnectionStatus(connection: ConnectionState) {
             Text("  Contacting server…", style = MaterialTheme.typography.bodyMedium)
         }
         is ConnectionState.Ok -> Text(
-            "✓ Connected — ${connection.stats.maliciousHashes} malware hashes in database " +
+            "✓ Connected - ${connection.stats.maliciousHashes} malware hashes in database " +
                 "(${connection.stats.sha256} SHA-256).",
             color = RiskSafe,
             fontWeight = FontWeight.Medium,

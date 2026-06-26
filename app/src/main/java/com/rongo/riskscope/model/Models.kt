@@ -71,9 +71,9 @@ data class DeviceSummary(
     val headline: String
         get() = when {
             !serverReachable && dangerCount == 0 ->
-                "Threat database unreachable — showing on-device heuristics only."
+                "Threat database unreachable - showing on-device heuristics only."
             dangerCount > 0 -> "$dangerCount known threat${if (dangerCount == 1) "" else "s"} found"
-            watchCount > 0 -> "No known malware — $watchCount app${if (watchCount == 1) "" else "s"} to review"
+            watchCount > 0 -> "No known malware - $watchCount app${if (watchCount == 1) "" else "s"} to review"
             else -> "No known malware detected"
         }
 }

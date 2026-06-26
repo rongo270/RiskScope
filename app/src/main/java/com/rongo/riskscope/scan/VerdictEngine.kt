@@ -14,7 +14,7 @@ import com.rongo.riskscope.model.ThreatLevel
  * Design goal (the whole point of the rewrite): NORMAL apps must not be flagged.
  *  - DANGER  only when the APK hash is a confirmed malware sample.
  *  - System apps and apps from a trusted store (Play, Galaxy Store, …) are SAFE
- *    no matter how many permissions they request — that was the old false alarm.
+ *    no matter how many permissions they request - that was the old false alarm.
  *  - WATCH only for SIDELOADED apps that also show a genuinely notable signal
  *    (debug cert, active accessibility/admin, hidden startup, strong combos…).
  */

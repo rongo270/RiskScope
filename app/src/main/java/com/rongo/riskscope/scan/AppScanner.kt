@@ -47,7 +47,7 @@ data class ScannedApp(
 /**
  * Enumerates installed apps, computes each APK's SHA-256, and runs lightweight
  * behavioural heuristics (ported from the original RiskAnalyzer). The heuristics
- * are advisory only — the authoritative "is this malware?" answer comes from the
+ * are advisory only - the authoritative "is this malware?" answer comes from the
  * server hash check.
  */
 @Suppress("DEPRECATION") // legacy PackageManager flag/signature APIs used on older SDKs
@@ -150,7 +150,7 @@ class AppScanner(context: Context) {
         val requestsOverlay = Manifest.permission.SYSTEM_ALERT_WINDOW in requested
         val overlayAllowed = requestsOverlay && isOverlayAllowed(appInfo)
         if (overlayAllowed) score += add(findings, Severity.HIGH, "Overlay permission allowed",
-            "The app can draw over other apps — often abused for phishing overlays.", 20)
+            "The app can draw over other apps - often abused for phishing overlays.", 20)
         else if (requestsOverlay) score += add(findings, Severity.MEDIUM, "Overlay permission requested",
             "The app declares SYSTEM_ALERT_WINDOW.", 8)
 
@@ -196,7 +196,7 @@ class AppScanner(context: Context) {
         findings.sortWith(compareByDescending<RiskFinding> { it.weight }.thenBy { it.title })
 
         // Only hash apps we actually want a server verdict for (skip the many OEM
-        // system apps unless requested — keeps scans fast and avoids huge I/O).
+        // system apps unless requested - keeps scans fast and avoids huge I/O).
         val shouldHash = includeSystemApps || !systemApp
         val apkSha256 = if (shouldHash) ApkHasher.sha256(appInfo.sourceDir) else null
 
