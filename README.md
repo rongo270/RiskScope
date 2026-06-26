@@ -17,6 +17,9 @@ An Android app that scans every installed application on your device, computes i
 | **WATCH** | No known-malware match, but on-device heuristics flagged a notable signal (advisory only) |
 | **SAFE** | Not known malware, nothing notable - where normal apps land |
 
+<img width="712" height="578" alt="Screenshot_20260625-210036" src="https://github.com/user-attachments/assets/875dfefc-0ae9-4d5c-8874-0af86be6a854" />
+
+
 System apps and apps installed from trusted stores (Google Play, Galaxy Store, etc.) are always **SAFE** unless their hash is confirmed malicious.
 
 ---
