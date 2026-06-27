@@ -16,8 +16,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Security
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
@@ -29,7 +31,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -38,6 +39,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rongo.riskscope.model.AppRisk
@@ -51,10 +53,6 @@ fun ScanScreen(viewModel: ScanViewModel, onOpenSettings: () -> Unit) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     var selected by remember { mutableStateOf<AppRisk?>(null) }
     val context = LocalContext.current
-
-    LaunchedEffect(Unit) {
-        if (state is ScanUiState.Idle) viewModel.scan()
-    }
 
     val scanning = state is ScanUiState.Scanning
 
@@ -75,18 +73,20 @@ fun ScanScreen(viewModel: ScanViewModel, onOpenSettings: () -> Unit) {
             )
         },
         floatingActionButton = {
-            ExtendedFloatingActionButton(
-                onClick = { if (!scanning) viewModel.scan() },
-                text = { Text(if (scanning) "Scanning…" else "Rescan") },
-                icon = {
-                    if (scanning) CircularProgressIndicator(Modifier.size(18.dp), strokeWidth = 2.dp)
-                    else Icon(Icons.Filled.Refresh, contentDescription = null)
-                },
-            )
+            if (state !is ScanUiState.Idle) {
+                ExtendedFloatingActionButton(
+                    onClick = { if (!scanning) viewModel.scan() },
+                    text = { Text(if (scanning) "Scanning…" else "Rescan") },
+                    icon = {
+                        if (scanning) CircularProgressIndicator(Modifier.size(18.dp), strokeWidth = 2.dp)
+                        else Icon(Icons.Filled.Refresh, contentDescription = null)
+                    },
+                )
+            }
         },
     ) { padding ->
         when (val s = state) {
-            is ScanUiState.Idle -> CenterMessage(padding, "Tap Rescan to analyze installed apps.")
+            is ScanUiState.Idle -> WelcomeView(padding, onScan = { viewModel.scan() })
             is ScanUiState.Scanning -> ScanningView(padding, s)
             is ScanUiState.Error -> CenterMessage(padding, "Scan failed: ${s.message}")
             is ScanUiState.Success -> ResultList(padding, s, onClick = { selected = it })
@@ -100,6 +100,42 @@ fun ScanScreen(viewModel: ScanViewModel, onOpenSettings: () -> Unit) {
             onOpenSettings = { pkg -> openAppSettings(context, pkg) },
             onUninstall = { pkg -> uninstall(context, pkg) },
         )
+    }
+}
+
+@Composable
+private fun WelcomeView(padding: PaddingValues, onScan: () -> Unit) {
+    Column(
+        modifier = Modifier.fillMaxSize().padding(padding).padding(32.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Icon(
+            Icons.Filled.Security,
+            contentDescription = null,
+            modifier = Modifier.size(72.dp),
+            tint = MaterialTheme.colorScheme.primary,
+        )
+        Text(
+            "Ready to scan",
+            style = MaterialTheme.typography.headlineSmall,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(top = 16.dp),
+        )
+        Text(
+            "Check your installed apps against known threats.",
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(top = 8.dp),
+        )
+        Button(
+            onClick = onScan,
+            modifier = Modifier.padding(top = 24.dp),
+        ) {
+            Icon(Icons.Filled.Search, contentDescription = null, modifier = Modifier.size(18.dp))
+            Text("  Scan now")
+        }
     }
 }
 

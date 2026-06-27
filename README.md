@@ -1,122 +1,68 @@
+<div align="center">
+
+<img src="branding/ic_riskscope_512.png" width="132" alt="RiskScope" />
+
 # RiskScope
 
-An Android app that scans every installed application on your device, computes its APK hash, and checks it against a threat database to detect known malware - while also running on-device heuristic analysis for sideloaded or suspicious apps.
+**Know what's really running on your phone.**
+
+An on-device malware & risk scanner for Android. It fingerprints every installed app, cross-checks it against a live threat database, and does its own detective work to flag the sketchy ones.
+
+<img src="https://img.shields.io/badge/Platform-Android%208.0%2B-3DDC84?logo=android&logoColor=white" alt="Android 8.0+" />
+<img src="https://img.shields.io/badge/Kotlin-7F52FF?logo=kotlin&logoColor=white" alt="Kotlin" />
+<img src="https://img.shields.io/badge/Jetpack%20Compose-4285F4?logo=jetpackcompose&logoColor=white" alt="Jetpack Compose" />
+<img src="https://img.shields.io/badge/License-MIT-2FA86A" alt="MIT" />
+
+</div>
 
 ---
 
-## How it works
+> You install apps. Some of them lie about what they do. **RiskScope catches them.**
 
-1. **Hash** - RiskScope computes the SHA-256 hash of each installed APK.
-2. **Server check** - The hashes are sent in batches to a [RiskScope-Server](https://github.com/rongo270/RiskScope-Server) instance, which checks them against a malware signature database.
-3. **Heuristics** - In parallel, the app analyzes each installed package for behavioral risk signals: debug certificates, dangerous permission combinations, active accessibility services, hidden startup receivers, etc.
-4. **Verdict** - Results are combined into a three-level threat classification:
+## 🔍 How it works
 
-| Level | Meaning |
-|-------|---------|
-| **DANGER** | The APK hash matches a confirmed malware sample in the database |
-| **WATCH** | No known-malware match, but on-device heuristics flagged a notable signal (advisory only) |
-| **SAFE** | Not known malware, nothing notable - where normal apps land |
+1. **Fingerprint** — compute the SHA-256 hash of every installed APK.
+2. **Cross-check** — send those hashes (and *nothing else*) to a [RiskScope-Server](https://github.com/rongo270/RiskScope-Server) to match against known malware.
+3. **Investigate** — in parallel, on-device heuristics sniff out red flags: debug certificates, dangerous permission combos, accessibility abuse, hidden startup receivers, and more.
+4. **Verdict** — it all collapses into one of three clear calls:
 
-<img width="712" height="578" alt="Screenshot_20260625-210036" src="https://github.com/user-attachments/assets/875dfefc-0ae9-4d5c-8874-0af86be6a854" />
+|     | Level | What it means |
+| --- | --- | --- |
+| 🔴 | **DANGER** | The APK matches confirmed malware in the database. Delete it. |
+| 🟡 | **WATCH** | Not known malware, but the heuristics noticed something. Worth a look. |
+| 🟢 | **SAFE** | Nothing known, nothing suspicious — where normal apps land. |
 
+Apps from trusted stores (Play, Galaxy Store…) and system apps stay **SAFE** unless their hash is a confirmed match.
 
-System apps and apps installed from trusted stores (Google Play, Galaxy Store, etc.) are always **SAFE** unless their hash is confirmed malicious.
+<div align="center">
+  <img width="460" alt="RiskScope scan results" src="https://github.com/user-attachments/assets/875dfefc-0ae9-4d5c-8874-0af86be6a854" />
+</div>
 
----
+## ✨ What you get
 
-## Features
+- 🛡️ **Batch hash-checking** against a live threat database
+- 🧠 **A heuristic engine** that scores and *explains* every finding
+- 📋 **Tap any app** for the full story — permissions, install source, signing certificate, every risk signal
+- 🌐 **Bring your own server**, or use the bundled public demo
+- ✈️ **Works offline** — heuristics keep running when the server's unreachable
+- 🎚️ **Optional deep scan** of system apps
 
-- Batch SHA-256 hash checking against a remote threat database
-- On-device heuristic engine with scored behavioral findings
-- Per-app detail sheet with full permission list, install source, certificate, and all risk findings
-- Optional scan of system apps
-- Configurable server URL - point to your own RiskScope-Server instance
-- Works offline (heuristics only when the server is unreachable)
-- Jetpack Compose UI with Material 3
+## 🚀 Get started
 
+**You'll need:** Android 8.0 (API 26)+ and a [RiskScope-Server](https://github.com/rongo270/RiskScope-Server) — a public demo comes pre-configured, so you can just run it.
 
----
-
-## Requirements
-
-- Android 8.0 (API 26) or higher
-- A running [RiskScope-Server](https://github.com/rongo270/RiskScope-Server) instance (a public demo is pre-configured)
-
----
-
-## Getting started
-
-### Build from source
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/rongo270/RiskScope.git
-   cd RiskScope
-   ```
-
-2. Open in Android Studio (Ladybug or newer recommended).
-
-3. Build and run on a device or emulator:
-   ```bash
-   ./gradlew installDebug
-   ```
-
-### Server
-
-The app ships with a default server URL pointing to a public demo deployment. You can change it at runtime in **Settings → Threat database server URL**.
-
-To run your own server, see [RiskScope-Server](https://github.com/rongo270/RiskScope-Server).
-
----
-
-## Architecture
-
-```
-app/src/main/java/com/rongo/riskscope/
-├── data/
-│   └── SettingsStore.kt          # SharedPreferences-backed settings (server URL, options)
-├── model/
-│   └── Models.kt                 # Domain models (AppRisk, ThreatLevel, RiskFinding, …)
-├── network/
-│   ├── ApiDtos.kt                # Retrofit request/response DTOs
-│   ├── RiskScopeApi.kt           # Retrofit API interface
-│   └── HashCheckRepository.kt    # OkHttp client, batch check logic
-├── scan/
-│   ├── ApkHasher.kt              # Computes SHA-256 of installed APKs
-│   ├── AppScanner.kt             # Queries PackageManager, runs heuristics
-│   └── VerdictEngine.kt          # Combines server verdict + heuristics → ThreatLevel
-└── ui/
-    ├── ScanScreen.kt             # Main scan list
-    ├── SettingsScreen.kt         # Server URL and options
-    ├── AppDetailSheet.kt         # Per-app detail bottom sheet
-    ├── ScanViewModel.kt          # ViewModel driving the scan flow
-    ├── RiskScopeApp.kt           # Navigation host
-    ├── components/               # Shared Compose components
-    └── theme/                    # Material 3 color scheme and risk-level visuals
+```bash
+git clone https://github.com/rongo270/RiskScope.git
+cd RiskScope
+./gradlew installDebug
 ```
 
-**Tech stack:** Kotlin · Jetpack Compose · Retrofit 2 · OkHttp 4 · Kotlinx Serialization · Coroutines
+Or open it in Android Studio (Ladybug or newer) and hit **Run**. Swap the server anytime under **Settings → Threat database server URL**.
 
----
+## 🔒 Privacy
 
-## Permissions
+RiskScope sends **only SHA-256 hashes** of APK files — never file contents, personal data, or device identifiers. No accounts, no tracking, no telemetry.
 
-| Permission | Why |
-|------------|-----|
-| `INTERNET` | Send APK hashes to the threat database server |
-| `ACCESS_NETWORK_STATE` | Check connectivity before attempting server calls |
-| `QUERY_ALL_PACKAGES` | Enumerate all installed apps for scanning |
+## 📄 License
 
-No user data is collected. Only SHA-256 hashes of APK files are sent to the server - not file contents, personal data, or device identifiers.
-
----
-
-## Contributing
-
-Pull requests are welcome. For major changes, please open an issue first to discuss what you'd like to change.
-
----
-
-## License
-
-[MIT](LICENSE)
+[MIT](LICENSE) — do what you like. Issues and pull requests welcome.
