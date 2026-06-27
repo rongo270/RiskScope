@@ -34,11 +34,6 @@ System apps and apps installed from trusted stores (Google Play, Galaxy Store, e
 - Works offline (heuristics only when the server is unreachable)
 - Jetpack Compose UI with Material 3
 
----
-
-## Screenshots
-
-> Coming soon
 
 ---
 
